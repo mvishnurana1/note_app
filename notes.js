@@ -3,6 +3,19 @@ let     fs = require('fs'),
 
 const getNotes =()=> console.log(`notes go here!`); 
 
+const readNote =(title)=>{
+    // loading notes: 
+    notes = loadNotes(); 
+
+    const finalNote = notes.filter((note)=> note.title === title); 
+
+    if(finalNote.length > 0){
+        finalNote.forEach((note)=> console.log(chalk.blue(note.body))); 
+    } else {
+        console.log(chalk.bgRed('no such to-do found...')); 
+    }
+}
+
 const removeNote =(title)=> {
     // loading all notes
     notes = loadNotes(); 
@@ -24,8 +37,11 @@ const listNotes =()=>{
     // loading notes 
     notes = loadNotes(); 
 
+    console.log(chalk.bold.yellow(`Your notes: `)); 
+    
+    // listing all notes
     notes.forEach((note)=>{
-        console.log(chalk.bold.magenta(`${note.title}`)); 
+            console.log(chalk.bold.magenta(`${note.title}`));
     }); 
 }
 
@@ -41,8 +57,10 @@ const addNote = function (title, body) {
     if (duplicateNotes.length === 0) {
         notes.push({
             title: title,
-            body: body
+            body : body
         }); 
+
+        // saving notes to the DB
         saveNotes(notes); 
         console.log(chalk.green('New note added!')); 
     } else {
@@ -51,7 +69,10 @@ const addNote = function (title, body) {
 }
 
 const saveNotes = (notes) => {
+    // converting the notes obj into JSON format 
     const dataJSON = JSON.stringify(notes); 
+
+    // writing to the JSON file
     fs.writeFileSync('notes.json', dataJSON); 
 }
 
@@ -69,5 +90,6 @@ module.exports = {
     getNotes   : getNotes, 
     addNote    : addNote, 
     removeNote : removeNote, 
-    listNotes   : listNotes
+    listNotes  : listNotes, 
+    readNote   : readNote 
 }; 
