@@ -19,6 +19,16 @@ const removeNote =(title)=> {
     }
 }
 
+const listNotes =()=>{
+
+    // loading notes 
+    notes = loadNotes(); 
+
+    notes.forEach((note)=>{
+        console.log(chalk.bold.magenta(`${note.title}`)); 
+    }); 
+}
+
 const addNote = function (title, body) {
 
     // load notes
@@ -58,5 +68,6 @@ const loadNotes = ()=> {
 module.exports = {
     getNotes   : getNotes, 
     addNote    : addNote, 
-    removeNote : removeNote
+    removeNote : removeNote, 
+    listNotes   : listNotes
 }; 
