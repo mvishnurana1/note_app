@@ -5,14 +5,7 @@ const getNotes = function () {
 }
 
 const removeNote = function (title) {
-
-    const noteExistence = notes.filter(function(note){
-        return note.title === title; 
-    }); 
-
-    if(noteExistence){
-        console.log('Note with title ', title, ' removed!'); 
-    }
+    console.log(`removed note title ${title}`); 
 }
 
 const addNote = function (title, body) {
@@ -54,6 +47,7 @@ const loadNotes = function () {
 }
 
 module.exports = {
-    getNotes: getNotes,
-    addNote: addNote
+    getNotes   : getNotes,
+    addNote    : addNote, 
+    removeNote : removeNote
 }; 
